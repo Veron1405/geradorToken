@@ -1,12 +1,15 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Slider from "@react-native-community/slider";
+import { useState } from "react";
 
 export function Home() {
+    const [qtde, defineQtde] = useState(6)
+
     return (
         <View style={ESTILO.container}>
             <Image source={require("../assets/logo.png")} style={ESTILO.logo} />
-            <Text>
-                Meu app!
+            <Text style={ESTILO.caracteres}>
+                {qtde} Caracteres
             </Text>
             <View style={ESTILO.area}>
                 <Slider style={{ height: 50 }}
@@ -16,6 +19,8 @@ export function Home() {
                     minimumTrackTintColor="#ff0000"
                     maximumTrackTintColor="#000"
                     thumbTintColor="#392de9"
+                    value={qtde}
+                    onValueChange={(value) => defineQtde(value.toFixed(0))}
                 />
             </View>
             <TouchableOpacity style={ESTILO.button}>
@@ -56,5 +61,10 @@ const ESTILO = StyleSheet.create({
     buttonText: {
         color: "#FFF"
     },
+
+    caracteres:{
+        fontSize:30,
+        fontWeight:"bold"
+      }
 })
 
