@@ -1,9 +1,15 @@
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity, Modal } from "react-native";
+import { ModalTokens } from '../components/modal';
 import Slider from "@react-native-community/slider";
 import { useState } from "react";
 
 export function Home() {
     const [qtde, defineQtde] = useState(6)
+    const [telaModal, configTelaModal] = useState(false)
+
+    function gerarToken() {
+        configTelaModal(true);
+    }
 
     return (
         <View style={ESTILO.container}>
@@ -23,11 +29,14 @@ export function Home() {
                     onValueChange={(value) => defineQtde(value.toFixed(0))}
                 />
             </View>
-            <TouchableOpacity style={ESTILO.button}>
+            <TouchableOpacity style={ESTILO.button} onPress={gerarToken}>
                 <Text style={ESTILO.buttonText}>
                     Gerar Senha
                 </Text>
             </TouchableOpacity>
+            <Modal visible={telaModal} animationType="fade" transparent={true}>
+                <ModalTokens fechar={() => configTelaModal(false)} />
+            </Modal>
         </View>
     )
 }
@@ -62,9 +71,9 @@ const ESTILO = StyleSheet.create({
         color: "#FFF"
     },
 
-    caracteres:{
-        fontSize:30,
-        fontWeight:"bold"
-      }
+    caracteres: {
+        fontSize: 30,
+        fontWeight: "bold"
+    }
 })
 
